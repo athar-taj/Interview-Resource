@@ -1,0 +1,224 @@
+1. what is difference between String , String Buffer and String Builder?
+2. Difference between abstract class and interface
+Types of interface
+3. Employee object - Set - dont allow 2 employees with same phone number?
+4. Annotations used in spring boot
+5. Concurrent modification exception? how many ways to handle Concurrent modification ?
+6. How to create custom exception?
+7. How to handle exception in spring boot project?
+8. How to send status code in response along with message??
+9. What is Spring IOC?
+10. what if i have beans of same class?
+11. how many ways to fetch data from database in spring jpa??
+12. 5 table joins take 1-1 column from every table, how to handle this in JPA?
+13. Why we need Spring JPA? we have Spring jdbc??
+14. i want some functionality like send email to all clients whose payment is pending every morning??
+15. Resutarant Management system - List down all the APIS needed in application?
+17. What is Rest API?
+18. Microservice and monolithic?
+19. What is spring actucators?
+20. What is the difference between String , String Buffer and String Builder
+21. Difference between abstract class and interface
+22. Types of Interface
+23. Collection framework hierarchy
+24. Difference between Array list and linked list
+25. real time example of where we can use list, set and map
+26. Hashmap/ HashSet internal working
+27. Concurrent modification exception
+28. What is the difference between ClassNotFoundException and NoClassDefFoundError
+29. Do you know design pattern or which design patterns you have used so far
+30. Difference between Spring and Spring boot
+31. Difference between Controller and Rest Controller
+32. Basic annotations of Spring boot
+33. What is auto configuration in SB
+34. what is bean lifecycle in SB
+35. Difference between @Bean @Component @Copilot Component Scan / Which Annotations are available in @SpringBootApplication
+36. Bean Scoping in Spring boot
+37. Spring IOC
+38. Reflection In Spring
+39. What is JPA in java
+40. which are the different ways to fetch data from data base usign Spring JPA
+41. what is the difference between spring JPA and Spring JDBC
+42. Any design pattern of microservice architecture / Service discovery/ Circuit breaker/ Strangler / Saga
+43. Memory area in JVM – heap/ stack/ method area/ Constant pool
+44. Where class level metadata is stored in JVM? (Method Area)
+45. What is ORM ? Example ?
+46. If in any case one request is falling continuously so how can i overcome from it ?
+47. @Configuration and @EnableAutoConfiguration
+48. Composition vs. Aggregation
+49. IOC vs. DI
+50. when to use kafka over rabbitMQ
+51. custom annotation
+52. custom exception can extend multiple exceptions
+53. Stream vs. parallel stream
+54. Custom Immutable class
+55. multi Tenant application arc.
+56. How to secure your resource in spring boot.
+57. Difference of cookies and session
+58. Composition and Aggregation
+59. what is runtime polymorphism internal working
+60. Functional Interface
+61. how to create build of an application from CMD
+62. Exception Propagation
+63. Monolithic is Better at deployment then why micro-service ?
+64. Fault Tolerance ?
+67. Super keyword
+68. What is GRANT and REVOKE in SQL
+69. Reflection API
+
+What is polymorphism?
+what is difference between abstract class and interface?
+what is constructor overloading?
+type of inheritance
+type of access modifiers and specification
+list all keywords provided by java
+what is diamond problem in java
+what is composition and aggregation
+what is encapsulation
+what is exception handling
+String Buffer/String Builder
+what is inheritance
+Collection Framework
+<------------------------------------------------------------------------------------------------>
+difference between String, string buffer and string builder
+String Constant Pool
+why abstraction is needed we have inheritance
+encapsulation
+what is runtime polymorphism internal working
+what is functional interface
+what is singleton class
+difference between array-list and linked-list
+what are collections
+concurrent modification exception
+how to create build of an application from CMD
+singleton class
+what is exception?
+user defined exception
+exception vs error
+what is Exception propagation?
+how do you create a custom exception in your project
+can make class static?
+Collection Frame Work (All)
+what is IOC
+JPA/JDBC
+if you have number of fields to store into DB then how you can do?
+in rabbit-MQ, how you are sending msg to queue?
+web-client, Rest Template
+What is micro-service?
+Monolithic is Better at deployment then why micro-service
+why you are using microservice when already monolithic is there?
+how micro-service is helpful
+can I use elastic-search as database? why it’s needed?
+java versions and features
+168.What is difference between new Arraylist and Arrays.asList
+169.Which one is fast LinkedList or Arraylist?
+170.Which case would you prefer LinkedList and which case Arraylist ?
+171.Difference between Aggregation and composition
+172.What is Fault tolerance
+173.Jwt authentication related questions
+174.Heap Memory and JVM
+175.How do you create HTTP POST request in Java
+176.What is the use of super keyword
+177.What is throw, throws and when do we use these?
+178.What is synchronization?
+179.What is a tree set?
+180.Explain the role of API Gateway in a microservices architecture?
+181.Explain functional interface and what are some of the available interfaces?
+182.What are REST API Best practices?
+183.What is a one-to-one mapping and how to set up it with JPA/Hibernate?
+184.Difference between entity object and value object?                                     
+185.What is the difference between ClassNotFoundException and NoClassDefFoundError
+@Controller and @RestController --------------------------------------------------------------------------------------------------------------------------------------
+New Ques: -
+JVM memory areas- Stack, heap, method area
+Multitenancy
+DDL (Data Definition language) – Create, Alter, Drop, Truncate, Rename
+DML (Data Manipulation Language)- Select, Insert, Update, Delete
+Indexing in DB table its advantages and disadvantages
+AOP - > Aspect Oriented Programming
+Aspects of Spring that you have used in your project- Spring data-JPA-JDBC-Hibernate-, Spring boot,
+SPRING cloud, Security, Spring AMQP- for Rabbit MQ, Spring WEB Flux - webclient, MVC - to render
+Appropriate view
+SOLID Principles - Single Responsibility Principle (SRP) - Open-Closed Principle (OCP) - Liskovs Substitution Principle (LSP) - Interface Segregation Principle (ISP) - Dependency Inversion Principle (DIP)
+Microservice Design Pattern:
+Design patterns in java ---------------------------------
+
+
+
+ Code-Based/Practical (15)*
+11. Code for runtime polymorphism.
+12. Code: Inheritance + method overriding.
+13. Code:`final` class and its restriction.
+14. Code: Abstract class vs interface in real-world model.
+15. Constructor chaining using`this()` and`super()`.
+16. Code: Access private member via getter/setter.
+17. Real scenario: Abstract method and implementation.
+18. Code: Create your own immutable class.
+19. Use-case: Interface for payment processor.
+20. Difference: Class vs Object with code.
+21. Show IS-A and HAS-A example in code.
+22. Create Singleton using static block.
+23. Clone object using Cloneable interface.
+24. Difference between deep copy vs shallow copy.
+25. Code: Use of static block and instance block.
+
+*Tricky & Scenario-based (15) 
+26. Can abstract class have static methods?   ✅
+27. Can we override private methods?          ❌
+28. What happens if subclass constructor doesn’t call `super()`?            Default Calling No-Args Constructor but if Args Constructor throws (Compile Error)
+29. Can we inherit constructors in Java?      ❌
+30. Can you override static method?           ❌
+31. Can constructor return a value?           ❌
+32. What’s the output of`System.out.println(this);` in constructor?                  ( Class Object )
+33. Why multiple inheritance is not supported via classes?                           (Bcs They shared the states to another classes may causes of ambiguty)
+34. Diamond problem explanation.                                                     ( 1 - M - 1)
+35. Can we create instance of interface?
+36. Output if we override`equals()` but not`hashCode()`?
+37. Real-world: When to use abstract vs interface?              ( Abstract  :  Display Menu Data is Same but Execution Time is different for all  , Interface : Make Payment)
+38. How to design a model with multiple interfaces?
+39. Use final in class, method, and variable — explain behavior.        (Class not Inherited  , method not be override ,variable value not changed )
+40. Explain object slicing.
+
+
+1.  What is the difference between `INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN`, and `FULL OUTER JOIN`? 
+2.  Explain `CROSS JOIN` with a real use case. 
+3.  How do you find the second highest salary in a table? 
+4.  Write a query to fetch records that have duplicates based on a column. 
+5.  How do you avoid duplicates in a result set? 
+6.  What is the use of `WITH (Common Table Expressions)`? 
+7.  Explain window functions like `ROW_NUMBER()`, `RANK()`, and `DENSE_RANK()`. 
+8.  Difference between `WHERE` and `HAVING` clause. 
+
+9.  Explain database normalization up to 3NF with real examples. 
+10.  What are different types of keys in a relational database? 
+11.  When would you denormalize a database? Why? 
+12.  How would you design a schema for an e-commerce platform (e.g., cart, order, product)? 
+
+13.  How do you optimize a slow-running query? 
+14.  What are indexes? Types of indexes? When do indexes reduce performance? 
+15.  What is a clustered index vs. non-clustered index? 
+16.  What is the execution plan and how do you read it? 
+17.  How do you handle large datasets in queries to avoid memory issues? 
+
+18.  What is ACID property in databases? 
+19.  Explain isolation levels: Read Uncommitted, Read Committed, Repeatable Read, Serializable. 
+20.  What is a deadlock? How do you detect and resolve it? 
+21.  Difference between `COMMIT`, `ROLLBACK`, and `SAVEPOINT`. 
+
+22.  How do you manage user access in a SQL database? 
+23.  What is SQL injection and how do you prevent it? 
+
+24.  Difference between stored procedure and function. 
+25.  What are views? Can views be updated? 
+26.  When would you use triggers? Are there any disadvantages? 
+27.  How do you pass parameters to stored procedures? 
+
+28. What tools have you used for SQL performance tuning or profiling?
+29. How do you handle database version control?
+30. What’s your experience with database backup, restore, and migration?
+
+
+
+
+
+

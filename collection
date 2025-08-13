@@ -1,0 +1,124 @@
+NavigableSet :
+
+`NavigableSet` is a Java interface that extends `SortedSet` and provides additional methods to navigate through a sorted set of elements. It allows you to efficiently retrieve
+elements based on their ordering, such as the closest lower, higher, floor (≤), or ceiling (≥) values relative to a given element. It also supports reverse iteration and the
+creation of subsets based on range queries. The most common implementation of `NavigableSet` is `TreeSet`, which maintains elements in their natural or custom order using a
+Red-Black Tree. This interface is especially useful in scenarios requiring ordered data access, like leaderboards, auto-suggestions, or time-based scheduling.
+
+
+
+
+| Feature                 | **List**                             | **Set**                                   | **Map**                                                  |
+| ----------------------- | ------------------------------------ | ----------------------------------------- | -------------------------------------------------------- |
+| **Implements**          | `java.util.List`                     | `java.util.Set`                           | `java.util.Map`                                          |
+| **Stores**              | Elements (values only)               | Unique elements                           | Key-value pairs                                          |
+| **Allows Duplicates**   | ✅ Yes                                | ❌ No                                      | ❌ No duplicate keys (values can repeat)                  |
+| **Order Maintained?**   | ✅ Yes (in `ArrayList`, `LinkedList`) | ❌ Not guaranteed (unless `LinkedHashSet`) | ✅ Keys ordered in `LinkedHashMap` or sorted in `TreeMap` |
+| **Index-based access?** | ✅ Yes                                | ❌ No                                      | ❌ No (access by key, not index)                          |
+| **Null elements**       | ✅ Allowed                            | ✅ One null allowed in `HashSet`           | ✅ One null key in `HashMap`, many null values            |
+
+
+
+| Feature                         | **ArrayList**                       | **LinkedList**                          |
+| ------------------------------- | ----------------------------------- | --------------------------------------- |
+| **Underlying Data Structure**   | Dynamic array                       | Doubly linked list                      |
+| **Access/Search (get)**         | ✅ Fast (O(1))                       | ❌ Slow (O(n))                           |
+| **Insertion at End**            | ✅ Fast (Amortized O(1))             | ✅ Fast (O(1))                           |
+| **Insertion/Removal at Middle** | ❌ Slow (O(n)) — needs shifting      | ✅ Fast (O(1)) with reference            |
+| **Memory Usage**                | Lower (no extra node references)    | Higher (stores two references per node) |
+| **Random Access**               | ✅ Yes (supports index-based access) | ❌ No (has to traverse list)             |
+| **Implements**                  | `List`, `RandomAccess`              | `List`, `Deque`, `Queue`                |
+
+
+
+| Feature                     | **HashSet**                                 | **TreeSet**                                                 |
+| --------------------------- | ------------------------------------------- | ----------------------------------------------------------- |
+| **Implements**              | `Set`, backed by a **HashMap**              | `NavigableSet`, backed by a **TreeMap**                     |
+| **Ordering**                | ❌ No ordering (unordered)                   | ✅ Sorted (natural order or Comparator)                      |
+| **Performance (Basic Ops)** | ✅ Faster (O(1) average)                     | ❌ Slower (O(log n))                                         |
+| **Null Elements**           | ✅ Allows one `null`                         | ❌ Does **not** allow `null` (throws `NullPointerException`) |
+| **Use of Comparator**       | ❌ Not applicable                            | ✅ Can use custom `Comparator`                               |
+| **Thread Safety**           | ❌ Not thread-safe (but can be synchronized) | ❌ Not thread-safe (same)                                    |
+| **Duplicates Allowed?**     | ❌ No                                        | ❌ No                                                        |
+
+
+Map - hashMap -LikedHashMap
+    - SortedMap - NavigableMap - TreeMap
+
+
+| Feature                       | **HashMap**                            | **LinkedHashMap**                          |
+| ----------------------------- | -------------------------------------- | ------------------------------------------ |
+| **Ordering**                  | ❌ No guaranteed order (random)         | ✅ Maintains **insertion order**            |
+| **Underlying Data Structure** | Hash table                             | Hash table + **doubly linked list**        |
+| **Performance**               | Slightly faster (no ordering overhead) | Slightly slower (due to order maintenance) |
+| **Allows Nulls?**             | ✅ One null key, multiple null values   | ✅ Same as `HashMap`                        |
+| **Iteration Order**           | Unpredictable                          | Predictable (insertion order)              |
+| **Use Case**                  | Fast lookup where order doesn’t matter | Maintain predictable order of entries      |
+| **Memory Use**                | Lower (no extra links)                 | Higher (extra links for order tracking)    |
+| **Access Order Mode?**        | ❌ Not available                        | ✅ Yes (can maintain access order for LRU)  |
+
+
+
+| Feature                    | `ArrayList`                            | `Vector`                               |
+| -------------------------- | -------------------------------------- | -------------------------------------- |
+| **Thread Safety**          | **Not synchronized** (not thread-safe) | **Synchronized** (thread-safe)         |
+| **Performance**            | Faster (no synchronization overhead)   | Slower due to synchronization          |
+| **Growable Array**         | Grows by **50%** when full             | Grows by **100%** (i.e., doubles size) |
+| **Use in Multi-threading** | Needs external synchronization         | Safe to use across threads             |
+| **Introduced in**          | Java 1.2 (modern Collections API)      | Java 1.0 (legacy class)                |
+| **Default Capacity**       | 10                                     | 10                                     |
+
+
+
+Legacy vs Modern Collections in Java
+
+In Java, **legacy collections** refer to older data structures like `Vector`, `Hashtable`, `Stack`, and `Enumeration`, introduced before Java 1.2. These classes are
+**synchronized by default**, lack **generics**, and do not implement the core **Collection Framework interfaces**, making them less flexible and harder to integrate with newer
+APIs. On the other hand, **modern collections**, introduced with the **Java Collections Framework in Java 1.2**, include classes like `ArrayList`, `HashMap`, `HashSet`, and
+`LinkedList`. These are more efficient, support **generics**, are **not synchronized by default**, and follow a unified design based on interfaces such as `List`, `Set`, `Map`,
+and `Queue`. Modern collections are the preferred choice in most applications due to their scalability, type safety, and compatibility with features like **streams and lambda
+expressions**.
+
+
+Enumeration :
+
+Enumeration is a legacy iterator used to traverse older collections like Vector and Hashtable. It only allows reading, not removing or modifying
+elements. Today, Iterator and ListIterator are preferred for modern collections due to their power, safety, and flexibility.
+
+
+Collision handles :
+HashMap handles collisions using a linked list (before Java 8) and Red-Black tree (Java 8+) if collisions are frequent. This design ensures that even with many collisions, the
+lookup and insert operations remain efficient.
+
+
+HashMap Resizing :
+Load Factor: Fraction that decides when to resize (default 0.75).
+Threshold: Actual number of elements that triggers a resize.
+These mechanisms help HashMap maintain efficient performance even as the number of entries grows.
+
+
+Backing Array :
+The backing array is the internal array used by an ArrayList to store elements. It's automatically resized and managed internally by Java.
+
+Make Collection Immutable
+
+| Method                              | Java Version | Notes                                            |
+| ----------------------------------- | ------------ | ------------------------------------------------ |
+| `Collections.unmodifiableList()`    | Java 1.2+    | Wrapper — original can still be changed          |
+| `List.of()`, `Set.of()`, `Map.of()` | Java 9+      | True immutable collections                       |
+| Custom Wrapper                      | Any          | Implement your own class with no mutator methods |
+
+
+
+| Feature                    | `Arrays.asList()`                         | `List.of()` (Java 9+)                    |
+| -------------------------- | ----------------------------------------- | ---------------------------------------- |
+| **Mutability**             | ✅ Partially mutable (can change elements) | ❌ Immutable (no add/remove/set)          |
+| **Add/Remove elements**    | ❌ Throws `UnsupportedOperationException`  | ❌ Throws `UnsupportedOperationException` |
+| **Set/Replace element**    | ✅ Allowed (`list.set(0, "value")`)        | ❌ Not allowed                            |
+| **Backed by**              | The original array                        | Internal immutable implementation        |
+| **Null elements allowed?** | ✅ Yes                                     | ❌ No (throws `NullPointerException`)     |
+| **Fixed size?**            | ✅ Yes (size same as original array)       | ✅ Yes (truly fixed & immutable)          |
+| **Performance**            | Lightweight                               | Lightweight and optimized in Java 9+     |
+| **Use case**               | When you need a list backed by an array   | When you need an immutable constant list |
+
+

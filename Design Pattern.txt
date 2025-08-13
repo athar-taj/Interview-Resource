@@ -1,0 +1,46 @@
+"A design pattern is a proven and reusable solution to a common software design problem. It’s not a finished code but a template or guideline that can be adapted to
+different situations. Design patterns help make code more maintainable, scalable, and flexible by promoting best practices in object-oriented design.
+They are broadly classified into creational, structural, and behavioral patterns.
+For example, the Singleton Pattern ensures a class has only one instance, and the Strategy Pattern helps in selecting an algorithm at runtime."
+
+
+- Creational patterns : provide object creation mechanisms that increase flexibility and reuse of existing code.
+
+
+| Pattern              | Purpose                                                                            |
+| -------------------- | ---------------------------------------------------------------------------------- |
+| **Singleton**        | Ensures a class has only one instance and provides a global point of access to it. |
+| **Factory Method**   | Creates objects without specifying the exact class of the object.                  |
+| **Abstract Factory** | Provides an interface for creating families of related objects.                    |
+| **Builder**          | Constructs complex objects step by step.                                           |
+| **Prototype**        | Creates new objects by cloning an existing object.                                 |
+
+
+- Structural patterns : explain how to assemble objects and classes into larger structures, while keeping these structures flexible and efficient.
+
+| Pattern       | Purpose                                                    |
+| ------------- | ---------------------------------------------------------- |
+| **Adapter**   | Converts one interface into another that a client expects. |
+| **Bridge**    | Decouples abstraction from implementation.                 |
+| **Composite** | Treats individual objects and compositions uniformly.      |
+| **Decorator** | Adds new behavior to objects dynamically.                  |
+| **Facade**    | Provides a simplified interface to a complex system.       |
+| **Flyweight** | Reduces memory usage by sharing as much data as possible.  |
+| **Proxy**     | Acts as a placeholder or surrogate for another object.     |
+
+
+- Behavioral patterns take care of effective communication and the assignment of responsibilities between objects.
+
+| Pattern                     | Purpose                                                                                   |
+| --------------------------- | ----------------------------------------------------------------------------------------- |
+| **Observer**                | Defines a one-to-many dependency so when one object changes, all dependents are notified. |
+| **Strategy**                | Enables selecting an algorithm’s behavior at runtime.                                     |
+| **Command**                 | Encapsulates a request as an object.                                                      |
+| **Iterator**                | Provides a way to access elements of a collection sequentially.                           |
+| **Mediator**                | Centralizes complex communications and control between objects.                           |
+| **State**                   | Allows an object to alter its behavior when its internal state changes.                   |
+| **Template Method**         | Defines the program skeleton and lets subclasses redefine steps.                          |
+| **Chain of Responsibility** | Passes requests along a chain of handlers.                                                |
+| **Visitor**                 | Separates an algorithm from the object structure it operates on.                          |
+| **Interpreter**             | Implements a language interpreter for a defined grammar.                                  |
+| **Memento**                 | Captures and restores an object’s state.                                                  |

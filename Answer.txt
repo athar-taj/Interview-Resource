@@ -1,0 +1,435 @@
+Encapsulation – Wrapping data (fields) and behavior (methods) into a single unit (class) and restricting direct access via access modifiers (private, protected).
+
+Abstraction – Hiding internal implementation details and exposing only necessary functionality using abstract classes and interfaces.
+
+Inheritance – Allowing a class (subclass) to acquire properties and behaviors of another class (superclass), promoting code reuse and hierarchy.
+
+Polymorphism – Allowing a single interface to represent different underlying forms (method overloading at compile-time, method overriding at runtime).
+
+
+
+1.
+    String is immutable — once created, its value cannot be changed. Any modification results in a new object. This is suitable for constant or
+    read-only data.
+    (Ex. For HashMap,HashSet Keys ,Save memory,sensitive Data)
+
+    StringBuffer is mutable and thread-safe — it allows changes to the string contents and uses synchronized methods, making it safe for use in
+    multithreaded environments. However, synchronization adds performance overhead.
+    (Ex. 🔹 Multiple threads can safely log messages using synchronized methods of StringBuffer.)
+
+    StringBuilder is also mutable but not thread-safe — it’s faster than StringBuffer and should be used when thread safety is not a concern,
+    typically in single-threaded contexts.
+    (Ex. Manipulate the String kind of Data in huge amount of Loop . Because String in a loop creates thousands of intermediate objects,
+    killing performance. )
+
+
+An interface defines a contract of methods that a class must implement without specifying how. It supports abstraction, multiple inheritance, private,public and default. Since
+Java 8, interfaces can also include default and static methods for added flexibility.
+
+1. Normal Interface : A standard interface with abstract methods.
+2. Functional Interface : Contains only one abstract method. ( Functional programming, stream operations, concise code with lambdas.) (Runnable ,Callable)
+3. Marker Interface : An interface with no methods or fields. ( Serializable, Clonable,Remote)
+4. Nested Interface : An interface defined within a class or another interface.
+
+
+
+- Use @ControllerAdvice for centralized exception handling, custom exceptions for clarity, and proper HTTP status codes to build robust,
+user-friendly APIs in Spring Boot.
+
+
+Spring IoC (Inversion of Control) is a core Spring concept where the framework manages object creation and dependencies instead of the developer.
+Using Dependency Injection, Spring automatically injects required dependencies into classes, promoting loose coupling and easier testing. The
+IoC container (`ApplicationContext`) handles the lifecycle and configuration of beans, simplifying application development.
+
+Object Creation (Instantiation)
+Dependency Injection (Wiring dependencies)
+Lifecycle Management (bean lifecycle , ApplicationContext LifeCycle )
+Configuration Management (via XML, annotations, or Java config)
+
+
+Spring JPA is needed because it provides a higher-level, object-relational mapping (ORM) approach compared to Spring JDBC. While Spring
+JDBC requires manual SQL queries and mapping between database rows and Java objects, Spring JPA (built on top of Hibernate or other JPA
+providers) automates this by letting you work directly with Java entities and repositories, reducing boilerplate code. It also supports
+powerful features like lazy loading, caching, transaction management, and dynamic query generation, which makes data access
+easier, cleaner, and more maintainable—especially for complex applications. In contrast, Spring JDBC is more low-level and better suited for
+simple or performance-critical use cases where you want full control over SQL.
+
+
+Memory Area :
+
+Heap Area : Stores all objects and class instances.
+Stack Area : Stores method call frames, local variables, and partial results.
+Class Area : Stores class metadata, static variables, constants ,and method definitions.
+Constant Pool : The String Constant Pool
+ is a special area in the Java heap memory where string literals are stored.
+Program Counter Register : Stores the address of the current instruction being executed.
+MetaSpace : Store Class Meta data , methods def. , variables .
+
+
+Old Generation , New Generation , metaSpace , Other ( threads etc.)
+
+45. What is ORM ? Example ?
+    MyBatis,EclipseLink,TopLink ,OpenJPA
+
+
+46. If in any case one request is falling continuously so how can i overcome from it ?
+If a request keeps failing in production, first identify the root cause via logs and monitoring. Then implement retries with exponential
+backoff for transient errors, use a circuit breaker (like Resilience4j) to avoid overwhelming failing services, and provide fallbacks
+to degrade gracefully. Also, set proper timeouts and monitor failures to proactively fix issues. This approach ensures resilience and
+better user experience in Spring Boot apps.
+
+47. @Configuration and @EnableAutoConfiguration
+| Annotation                   | Purpose                                                            | Used For                        |
+| ---------------------------- | ------------------------------------------------------------------ | ------------------------------- |
+|   @Configuration             | Define explicit Spring beans manually                              | Custom, manual configuration    |
+|   @EnableAutoConfiguration   | Automatically configure Spring Boot features based on dependencies | Auto config in Spring Boot apps |
+
+
+
+49. IOC vs. DI
+
+| Concept            | Inversion of Control (IoC)                                                                                                   | Dependency Injection (DI)                                                                                  |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Definition     | A broad principle where control of object creation and flow is inverted (taken from you and given to a framework/container). | A specific technique to implement IoC by injecting dependencies instead of creating them inside the class. |
+| Scope          | General architectural pattern                                                                                                | Design pattern / implementation technique                                                                  |
+| Implemented by | Frameworks like Spring, Angular, etc.                                                                                        | Constructor, Setter, or Field Injection                                                                    |
+| Focus          | Who controls the flow of the program                                                                                         | How dependencies are provided                                                                              |
+| Example        | Spring controls when and how beans are created                                                                               | Spring injects `UserService` into a `UserController`                                                       |
+| Relationship   | IoC is the principle                                                                                                         | DI is a way to implement that principle                                                                    |
+
+50. Choose Kafka for data pipelines and streaming architectures.
+    Choose RabbitMQ for task queues, request/response, or complex routing in traditional apps.
+
+51. Custom annotation
+    - Define the Annotation (@Retention ,@Target)
+    - create class for the annotation business logic using AOP
+
+52. custom exception can extend multiple exception
+    - not basically inherit multiple exception but using Hierarchy inheritance
+
+53. Stream : Sequential processing (single thread).
+     Best for small to medium data sets or when order matters.
+
+     Parallel Stream : Multi-threaded processing using ForkJoinPool.
+     Best for large collections and CPU-heavy operations. Order not guaranteed.
+
+54. Custom Immutable class
+    - Mark the class as final (can’t be subclassed).
+    - Make all fields private and final.
+    - Do not provide setters.
+    - Initialize fields via constructor only.
+
+
+JAVA 8 :
+- Lambda Expressions
+- Streams API
+- Functional Interfaces
+- Default Methods in Interfaces
+- Optional Class
+- New Date and Time API (java.time) with the zone
+- Collects stream results into collections, maps, or other forms.
+- Parallel Streams
+- CompletableFuture API support for asynchronous and reactive programming.
+
+JAVA 11 :
+- var in lambda parameters
+- isBlank(), lines(), strip(), stripLeading(), stripTrailing(), repeat(int)
+  Optional.isEmpty()
+  Files.readString() and Files.writeString()
+  Collection.toArray(IntFunction)
+  Collection.toArray(IntFunction)
+- HTTP Client
+
+
+JAVA 17 :
+- Sealed Classes
+- Switch Expressions
+- RandomGenerator API
+
+JAVA 21 :
+- Thread.startVirtualThread() creates a lightweight, non-blocking thread.
+- Sequenced Collections
+- Vector API
+- Foreign Function & Memory API
+- String Templates
+
+
+56. How to secure your resource in spring boot.
+Securing resources in a Spring Boot application typically involves configuring Spring Security, which
+allows you to protect URLs, APIs, and application data using authentication and authorization mechanisms.
+
+
+57. Cookies & Session :
+
+| Feature                     | Cookies                                          | Sessions                                                  |
+| --------------------------- | ---------------------------------------------------- | ------------------------------------------------------------- |
+| Storage location        | Stored on the client (browser)                   | Stored on the server                                      |
+| Capacity                | Limited (\~4 KB per cookie)                          | Much larger (depends on server resources)                     |
+| Security                | Less secure (user can view/edit)                     | More secure (data hidden from the user)                       |
+| Lifespan                | Can persist after browser is closed (if not expired) | Typically expires after a set time or when browser is closed  |
+| Sent with every request | ✅ Yes — automatically sent to server                | ❌ No — only the session ID is sent via cookie          |
+| Use cases               | Remembering user preferences, login token            | Storing user data like cart contents, authenticated user info |
+| Modifiable by user?     | Yes (user can view/modify them in browser dev tools) | No (data is on server; only ID is visible to client)          |
+| Setup                   | Stored with `Set-Cookie` header in HTTP response     | Requires server-side logic (in code or framework)             |
+
+
+58. Composition and Aggregation :
+
+In composition, the contained object is created and owned by the parent class. It cannot exist without the parent.
+ex. If the Car object is destroyed, the Engine goes with it. It’s part of the car, not shared.
+
+In aggregation, the contained object is passed in, and can exist independently.
+Here, multiple cars can share the same engine. If one car is destroyed, the engine still exists.
+
+48. Composition : Strong ownership: The child object cannot exist without the parent.
+    Aggregation : Weak ownership: The child object can exist independently of the parent.
+
+
+
+59. Runtime Polymorphism impl.
+
+- The compiler checks if the method exists in the reference type.
+- An object of the subclass is created, but referred by the superclass reference.
+- A method is called on the superclass reference.
+- JVM looks up the actual object's class Virtual Method Table (V-Table).
+- JVM finds the overridden method address in the V-Table.
+- JVM invokes the method of the actual object’s class.
+- The overridden method of the subclass is executed.
+
+60. Functional Interface
+A functional interface has exactly one abstract method, enabling lambda expressions in Java. It promotes concise, readable code and supports functional programming paradigms.
+Examples include Runnable, Callable, and interfaces in java.util.function.
+
+61. Build jar using CMD
+javac -d bin src\Main.java         -d bin: tells compiler to put .class files into bin/
+cd bin
+jar cfe MyApp.jar Main Main.class
+java -jar bin\MyApp.jar
+
+
+62. Exception Propagation
+Exception propagation in Java is the mechanism by which an exception moves up the call stack when it's not handled in the current method. If a method throws an exception and
+doesn't catch it, that exception is passed to the method that called it. This continues until it's either caught or reaches the JVM, which then typically terminates the program.
+
+
+63. Monolithic is Better at deployment then why micro-service ?
+Monolith = easy to deploy but harder to scale and maintain as you grow.
+Microservices = harder to deploy but better for scalability, resilience, and team agility in bigger projects.
+
+68.
+ GRANT :
+    Used to give specific permissions to users on database objects (like tables, views, etc.).
+ REVOKE :
+    Used to remove previously granted permissions from users.
+
+
+
+69. Reflection API
+Java Reflection API allows a program to inspect and manipulate classes, methods, fields, and constructors at runtime. It enables dynamic object
+creation, method invocation, and access to private members, even if the code doesn’t know them at compile time. Reflection is widely used in
+frameworks and tools but can impact performance and break encapsulation if misused.
+
+
+
+-- Singleton class
+A Singleton class in Java is a class that allows only one instance to be created during the lifetime of the application. It's commonly used
+for logging, configuration, database connections, etc.
+
+
+-- Elastic Search as Database :
+
+Yes, you can, but it’s not recommended as your primary database.
+It’s built for fast search and analytics, not for storing transactional or relational data.
+Great for: full-text search, logs, metrics, and analytics.
+Not great for: ACID transactions, complex relations, or critical data integrity.
+Use Elasticsearch when search speed and analytics matter — not as a full replacement for a database
+
+
+💎 What Is the Diamond Problem in Java?
+The diamond problem is a classic issue in multiple inheritance where a class inherits from two classes that
+both inherit from the same superclass. This causes ambiguity in method resolution.
+
+
+-- Falut Tolerance : Fault tolerance is the ability of a system to continue working properly even if part of it fails.
+we can prevent using Retry Mechanism ,Timeouts , Circuit Breaker Pattern , Load Balancing, Monitoring and Alerting
+
+
+Super Keyword :
+
+| Use Case                    | Example          | Description                       |
+| --------------------------- | ---------------- | --------------------------------- |
+| Call superclass method      | `super.method()` | Useful when overriding            |
+| Call superclass constructor | `super(args)`    | Must be first line in constructor |
+| Access superclass field     | `super.field`    | Useful when hiding fields         |
+
+
+-- API Gateway
+
+- Routing requests to appropriate microservices
+- Handling authentication & authorization
+- Performing load balancing, rate limiting, and caching
+- Aggregating responses from multiple services
+- Logging and monitoring traffic
+Think of it as a traffic controller that manages and optimizes how clients interact with your system.
+
+
+-- ClassNotFoundException: I tried to load a class by name, but it's not in the classpath.
+   NoClassDefFoundError: The class was there at compile time, but now it’s missing at runtime.
+
+
+-- Indexing in DB
+
+* Speeds up data retrieval (especially SELECT queries).
+* Improves performance for sorting, filtering, and joins.
+* Enforces uniqueness (e.g., primary keys).
+* Reduces query processing time.
+
+* Slows down INSERT, UPDATE, and DELETE operations.
+* Increases storage requirements.
+* Requires regular maintenance.
+* Can lead to unnecessary overhead if overused.
+
+
+Key Points :
+- Static methods are resolved at compile time based on the reference type, not the actual object.
+- Static methods are not polymorphic — they are not overridden, they are hidden.
+- Return type is not part of the method signature for overloading.
+
+
+Shallow Copy (Lazy): “I’ll just copy the outer shell now and reuse the inner stuff — less effort.”
+Deep Copy (Eager): “Let me carefully clone everything right now — even what’s inside — to avoid surprises later.”
+
+
+SOLID Principle :
+
+Single Responsibility : A class should have only one reason to change.
+Open/Close Principle :  Software entities should be open for extension but closed for modification.
+Liskov Substitution Principle : Subclasses must behave like base class
+Interface Segregation Principle : No client should be forced to depend on methods it does not use.
+Dependency Inversion Principle : High-level modules should not depend on low-level modules. Both should depend on abstractions.
+
+
+S – One class = One job
+O – Add features without changing existing code
+L – Subclasses must behave like base class
+I – Don’t force unused interface methods
+D – High-level modules use interfaces, not concrete classes
+
+
+S .  If print logic changes → only Printer changes. If database logic changes → only Repository changes.
+O .  Adding new vehicle types without breaks existing logic
+L .  A Vehicle class with a startEngine() method should not be inherited by Bicycle, because bicycles don’t have engines.
+I .  Car can't forced for fly or sail but Airplane and Boat does.
+D .  Switch to Mongo and SQL using only change in Repository Interface.
+
+
+
+Bean Lifecycle :
+
+Application started
+        |
+Spring container Start
+        |
+Bean constructed & DI
+        |
+   @PostConstruct
+        |
+      init()
+        |
+Custom Method Called
+        |
+    @PreDestroy
+        |
+     destroy()
+
+
+
+Thread LifeCycle:
+
+    New
+     |
+  Runnable
+     |
+   Running
+     |
+   Waiting
+     |
+ Terminating
+
+
+| Collection Class       | Default Initial Capacity | Default Load Factor | Resizable? | Notes                                                                |
+| -------------------------- | ---------------------------- | ----------------------- | -------------- | ------------------------------------------------------------------------ |
+| HashMap                | 16                           | 0.75                    | ✅ Yes          | Hash-based; resizes when threshold (`capacity * loadFactor`) is exceeded |
+| LinkedHashMap          | 16                           | 0.75                    | ✅ Yes          | Maintains insertion order; same resizing as HashMap                      |
+| Hashtable              | 11                           | 0.75                    | ✅ Yes          | Legacy class; synchronized                                               |
+| ConcurrentHashMap      | 16                           | 0.75                    | ✅ Yes          | Thread-safe and highly concurrent                                        |
+| HashSet                | 16 (via HashMap)             | 0.75                    | ✅ Yes          | Backed by a HashMap internally                                           |
+| LinkedHashSet          | 16 (via LinkedHashMap)       | 0.75                    | ✅ Yes          | Maintains insertion order                                                |
+| TreeMap                | N/A                          | N/A                     | ✅ Yes          | Based on Red-Black Tree; sorted keys; no load factor concept             |
+| TreeSet                | N/A                          | N/A                     | ✅ Yes          | Backed by TreeMap; sorted set                                            |
+| ArrayList              | 10                           | N/A                     | ✅ Yes          | Backed by dynamic array; resizes by 1.5x when full                       |
+| Vector                 | 10                           | N/A                     | ✅ Yes          | Legacy class; synchronized                                               |
+| Stack (extends Vector) | 10                           | N/A                     | ✅ Yes          | Legacy LIFO stack                                                        |
+| PriorityQueue          | 11                           | N/A                     | ✅ Yes          | Heap-based priority queue                                                |
+| ArrayDeque             | 16                           | N/A                     | ✅ Yes          | Double-ended queue (resizable array)                                     |
+
+
+
+Design Pattern :
+
+| Pattern Type | Examples                    | Purpose                           |
+| ------------ | --------------------------- | --------------------------------- |
+| Creational   | Singleton, Factory, Builder | Object creation                   |
+| Structural   | Adapter, Facade, Decorator  | Object composition                |
+| Behavioral   | Strategy, Observer, Command | Object communication and behavior |
+
+
+
+Ex. (Interface) Notification contains sendNotification() with types of email,SMS,WhatsApp,push etc. & use Retry if user Offline it contains retry logic.
+    (Abstract) User Varification in Payment contains pay() logic for DebitCard,CreditCard,UPI,Cash but Cash doesn't allow User Validation.
+
+
+Avoid ConcurrentModificationException :
+1. Use Iterator's remove() Method
+2. Use CopyOnWriteArrayList
+3. Collect and Remove Later
+4. Use Java 8+ Streams
+
+
+how can i secure our resource  :
+1. spring security
+2. role based access
+3. Environment-specific configs (env. variables)
+4. CORS
+5. Encryption , https in production
+
+
+secure endpoints :
+1. JWT tokens
+2. use role based authorization
+
+
+Serialization :
+Serialization is the process of converting a Java object into a format that can be easily stored or transmitted, such as JSON, XML, or binary.
+
+Deserialization :
+Deserialization is the reverse process — converting JSON (or another format) back into a Java object.
+
+@JsonProperty
+Specifies the JSON field name to be used during serialization (Java → JSON) and deserialization (JSON → Java).
+
+@JsonAlias
+Defines alternate names that can be used to map JSON fields during deserialization only (not serialization).
+
+@JsonIgnore
+annotation used to exclude a field from JSON serialization and deserialization.
+
+Lazy Loading :
+Infinite Scroll fetching :   
+
+
+Constructor :
+
+- Initialize Fields.
+- Create Object Setup.
+- Overload for flexibility.

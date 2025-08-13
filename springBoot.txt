@@ -1,0 +1,297 @@
+Spring :
+
+- A Java framework for building enterprise applications using dependency injection (DI), aspect-oriented programming (AOP), etc.
+- Requires manual configuration (XML or Java-based).
+- More boilerplate code and manual setup.
+- Typically packaged as a WAR file and deployed to an external servlet container (like Tomcat).
+- Uses annotations like @Component, @Autowired, @Configuration.
+- You manually specify all dependencies.
+- No built-in tools for logging, monitoring, metrics.
+
+
+Spring Boot :
+
+- A project built on top of Spring to simplify configuration and setup of Spring applications.
+- Uses auto-configuration and convention over configuration.
+- Quick setup with minimal configuration.
+- Comes with an embedded server (Tomcat, Jetty), so you can just run the JAR directly.
+- Uses all Spring annotations + additional ones like @SpringBootApplication, @EnableAutoConfiguration.
+- Uses starter dependencies (e.g., spring-boot-starter-web) that bundle common libraries.
+- Comes with Actuator, embedded server, CLI, etc.
+
+
+
+interface @AutoWired  :
+
+In Spring, especially with Spring Data JPA, you can use `@Autowired` to inject an interface like `UserRepository` without providing its
+implementation. This works because Spring automatically generates a proxy implementation of that interface at runtime using dynamic proxy
+mechanisms (JDK proxies or CGLIB). When the application starts, Spring scans for interfaces that extend `JpaRepository` or `CrudRepository`,
+and registers their proxy implementations as beans in the application context. These proxies handle all method calls by translating them into SQL
+queries behind the scenes. This allows developers to write only the interface with method signatures (e.g., `findByEmail`) without writing actual
+database logic, and still inject the interface as a working bean using `@Autowired`. This feature is enabled by annotations like
+`@SpringBootApplication` or `@EnableJpaRepositories`, and it greatly simplifies repository creation in Spring-based applications.
+
+
+In Spring Framework, the annotations @Component, @Service, @Repository, and @Controller are stereotype annotations used for automatic bean detection and registration via
+component scanning.
+
+
+@Component
+
+| Feature  | Details                                                                   |
+| -------- | ------------------------------------------------------------------------- |
+| Purpose  | A generic stereotype for any Spring-managed component.                |
+| Use Case | When the class doesn't fit into a specific layer like service/repository. |
+| Example  | Utility classes, custom logic, helpers.                                   |
+
+
+@Service
+
+| Feature  | Details                                                                                             |
+| -------- | --------------------------------------------------------------------------------------------------- |
+| Purpose  | Specialization of `@Component` for business logic/service layer.                                |
+| Use Case | Classes that contain service logic, or orchestrate calls between DAO/repository and controller. |
+| Benefit  | Semantically indicates "service responsibility".                                                |
+| Bonus    | Helps in AOP (like transaction management, logging).                                                |
+
+
+@Repository
+
+| Feature  | Details                                                                                      |
+| -------- | -------------------------------------------------------------------------------------------- |
+| Purpose  | Specialization of `@Component` for the data access layer (DAO).                          |
+| Use Case | Classes that interact with the database (JPA/Hibernate/JDBC).                            |
+| Benefit  | Spring automatically translates database exceptions into Spring’s `DataAccessException`. |
+| Bonus    | Enables features like exception translation and integration with Spring Data.                |
+
+
+
+
+How does Spring handle dependency injection?
+
+1. Constructor Injection
+2. Setter Injection
+3. Field Injection
+
+
+Component Scanning:
+Spring scans classes annotated with @Component, @Service, @Repository, etc.
+These are registered as beans in the Spring context.
+
+Bean Creation:
+Spring reads bean definitions from configuration (@ComponentScan, @Bean, or XML).
+Instantiates beans using reflection.
+
+Dependency Resolution:
+Resolves and injects required dependencies using: ( @Autowired , @Inject , @Resource )
+
+Bean Lifecycle Management:
+Spring manages the lifecycle (initialization, destruction, etc.) with hooks like @PostConstruct, @PreDestroy, and BeanPostProcessor.
+
+
+
+@Transectional :
+Spring opens a transaction before the method starts.
+
+Commits the transaction if method completes successfully.
+Rolls back if an unchecked exception (RuntimeException) is thrown.
+
+( if Compile Exception Occur so don't rollback default use @Transectional(rollBackFor = Exception.class)
+
+
+
+@Qualifier & @Primary — two annotations in Spring used to resolve ambiguity when multiple beans of the same type are present.
+Spring uses @Primary to set a default bean when multiple candidates exist. If finer control is needed, @Qualifier helps inject the exact bean
+required by name or ID.
+
+
+
+How do you secure a Spring application (Spring Security)?
+
+- I configure authentication to validate user credentials (e.g., username/password).
+- I configure authorization to restrict access to endpoints based on roles or permissions.These roles determine which endpoints or resources a user can access.
+- I use BCryptPasswordEncoder to store passwords in a hashed format.
+- I externalize credentials and secrets (like DB usernames, passwords, JWT keys) using environment variables or a secure properties file
+  (application.yml, .env, AWS Secrets Manager, etc.).
+- For stateless APIs, I use JWT (JSON Web Token) for token-based authentication.
+- Use HTTPS to encrypt network communication.
+- Enable CORS protection when appropriate.
+
+
+CORS : It’s a security feature in web browsers that controls which web pages can make requests to your server.
+ex. for Frontend on 3000 and backend on 8080 , 8080 permits the domain on 3000 to access their api and resources.
+
+
+
+Explain how you handle configuration across environments in Spring.
+
+I use Spring Profiles to separate config files by environment (like dev, test, prod), and externalize sensitive data using environment
+variables. This makes deployment safer and more flexible. In microservices, I also leverage Spring Cloud Config for centralized configuration.
+
+
+
+@AutoEnableConfiguration :
+
+ @EnableAutoConfiguration → triggers AutoConfigurationImportSelector.
+                            |
+                  META-INF/spring.factories
+                            |
+            Are required classes (e.g., DataSource, JpaRepository) present?
+            Are beans already defined by the user?
+            If not, it auto-defines beans using @Conditional annotations:
+            @ConditionalOnClass
+            @ConditionalOnMissingBean
+            @ConditionalOnProperty
+                            |
+                These conditions help Spring decide:
+                Should it apply this configuration or not?
+
+
+
+How does Spring Boot manage dependencies? What are starters?
+
+- Convenient Bundles of Dependencies
+- Auto-Configuration
+- version Compatibility
+
+
+Spring Boot simplifies dependency management using a concept called Starters and a centralized dependency management system via its parent POM.
+This helps avoid version conflicts and reduces the need to specify each dependency manually.
+
+Starters are predefined dependency bundles that group commonly used libraries for a specific feature (e.g., web, JPA, security).
+
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+Spring MVC
+Jackson (for JSON)
+Embedded Tomcat
+Validation, logging, etc.
+
+✅ You don’t need to declare all these manually.
+
+
+How do you create custom auto-configuration in Spring Boot (as a dependency)?
+
+To create custom auto-configuration as a dependency, I build a separate module with a @Configuration class, register it in
+META-INF/spring.factories, and package it as a JAR. When this JAR is included in any project, Spring Boot automatically applies the configuration
+based on conditions and properties.
+
+
+What is Spring Boot Actuator? What metrics or endpoints have you used?
+
+Spring Boot Actuator is a powerful module in Spring Boot that helps you monitor, manage, and inspect your application in production or development. It exposes RESTful endpoints
+to provide detailed information about the app's health, metrics, environment, and more.
+
+
+/actuator/beans
+/actuator/env
+/actuator/health
+
+
+How do you externalize configuration in Spring Boot (e.g., profiles, env variables)?
+
+Spring Boot allows you to externalize configuration so that you can separate code from environment-specific values (e.g., DB URLs, API keys, ports, profiles). This makes your
+application easily configurable and portable across dev, test, and prod environments.
+
+I use Spring Boot profiles and external environment variables to separate configs across dev, test, and prod. It makes the app portable and secure. I often inject config values
+using @Value or @ConfigurationProperties."
+
+
+
+
+"In my last project, I worked on a microservices-based Spring Boot application — a Swiggy-like food delivery platform. The architecture followed the domain-driven design
+principle, and each business capability was implemented as an independent service."
+
+🔧 Key Services:
+User Service – handles authentication/registration
+Restaurant Service – manages menus and restaurants
+Order Service – handles order placement and history
+Notification Service – sends email/SMS notifications
+Delivery Service – assigns and tracks delivery partners
+
+📡 Communication:
+Services communicated via REST APIs and RabbitMQ for async messaging.
+We used JWT tokens for authentication and Spring Security for access control.
+
+🧩 Other Highlights:
+Spring Cloud Gateway for API routing
+Eureka for service discovery
+ELK Stack for centralized logging
+
+🧱 Tech Stack:
+Spring Boot, Swagger UI , Netflix OSS (Eureka, Gateway), RabbitMQ, MySQL, MongoDB, Docker
+
+
+"I follow a three-layered architecture: controller handles HTTP logic, the service layer encapsulates business logic, and the repository layer interacts with the database using
+Spring Data JPA. This structure keeps the code modular, testable, and easy to maintain."
+
+
+
+| Annotation   | Source         | Required by Default?  | By Type or Name?                | Notes                                      |
+| ------------ | -------------- | --------------------- | ------------------------------- | ------------------------------------------ |
+| `@Autowired` | Spring         | Yes (can be optional) | By type                     | Most commonly used in Spring               |
+| `@Inject`    | Java (JSR-330) | Yes                   | By type                     | Like `@Autowired`, but no `required=false` |
+| `@Resource`  | Java (JSR-250) | Yes                   | By name first, then by type | Less flexible, name-sensitive              |
+
+
+
+what is test case and why we need to write them ?
+
+A test case is a piece of code written to verify that a specific part of your Spring Boot application (like a class, method, or endpoint) works as expected.
+
+| ✅ Catch Bugs Early          | Find errors during development, not in production.
+| ✅ Verify Business Logic     | Ensure your service, controller, or repo behaves correctly.
+
+
+| Test Type            | What it Tests                               | Annotation                            |
+| -------------------- | ------------------------------------------- | ------------------------------------- |
+| Unit Test        | A single class/method                       | `@ExtendWith(MockitoExtension.class)` |
+| Integration Test | Multiple layers (Controller + Service + DB) | `@SpringBootTest`                     |
+| Web Layer Test   | Only controller layer                       | `@WebMvcTest(MyController.class)`     |
+| Repository Test  | JPA queries, DB interactions                | `@DataJpaTest`                        |
+
+
+
+rabbit MQ ?
+
+RabbitMQ is a message broker that enables asynchronous communication between distributed systems. It implements the Advanced Message Queuing
+Protocol (AMQP) and is widely used to decouple services, buffer workloads, and enable scalability in microservice architectures.
+
+Key Concept ( Producer , Exchange , Queue , Consumer ,Routing Key )
+
+Loose Coupling: Services don't need to know each other — communication happens via queues.
+Asynchronous Processing: Offload heavy or slow tasks like sending emails or generating reports.
+Load Buffering: Smooths spikes in traffic, especially under high load.
+Retry and DLQ: Built-in dead-letter queues and retry logic make failure handling cleaner.
+Delivery Guarantees: Support for ack, nack, and persistent messages.
+
+
+ELK ?
+
+| Component         | Description                                                         |
+| ----------------- | ------------------------------------------------------------------- |
+| E – Elasticsearch | A distributed, RESTful search and analytics engine                  |
+| L – Logstash      | A data processing pipeline that ingests, transforms, and ships logs |
+| K – Kibana        | A dashboard and visualization tool for data stored in Elasticsearch |
+
+
+| Benefit                | Description                                                             |
+| -----------------------| ----------------------------------------------------------------------- |
+| ✅ Centralized Logging | Collect logs from all Spring Boot services in one place                 |
+| ✅ Searchable Logs     | Use Elasticsearch to search logs by timestamp, log level, service, etc. |
+| ✅ Visualization       | Use Kibana dashboards to monitor service health, traffic, errors        |
+| ✅ Alerting            | Set up alerts for errors, spikes, or specific events                    |
+| ✅ Troubleshooting     | Trace issues across services (with correlation IDs, MDC logging, etc.)  |
+
+
+for that we need to write spring-logback.xml for logs processing and logstash.conf for making the separate pipeline.
+
+Track production errors
+View request/response patterns
+Audit logging
+Track user activity
+Debug complex transactions with trace IDs
+

@@ -1,0 +1,139 @@
+### 1. **What are the different ways to read a file in Java?**
+
+**Answer:**
+
+* `FileReader` / `BufferedReader`
+* `Scanner`
+* `Files.readAllLines()` / `Files.lines()` (NIO)
+* `FileInputStream` / `BufferedInputStream`
+* `RandomAccessFile`
+* `FileChannel` (NIO)
+
+🧠 **BufferedReader** and **NIO Files API** are preferred for performance and simplicity.
+
+---
+
+### 2. **How do you write data to a file in Java?**
+
+**Answer:**
+
+* `FileWriter` / `BufferedWriter`
+* `PrintWriter`
+* `Files.write()` (NIO)
+* `FileOutputStream` / `DataOutputStream`
+
+Example:
+
+```java
+Files.write(Paths.get("file.txt"), "Hello".getBytes(), StandardOpenOption.CREATE);
+```
+
+---
+
+### 3. **Difference between `FileReader` and `BufferedReader`?**
+
+| `FileReader`         | `BufferedReader`               |
+| -------------------- | ------------------------------ |
+| Reads char by char   | Buffers characters in memory   |
+| Less efficient       | Faster, better for large files |
+| No readLine() method | Has `readLine()` method        |
+
+---
+
+### 4. **What is `File` class in Java used for?**
+
+**Answer:**
+
+* Used to **represent file/directory path**
+* Can **create, delete, rename, and check existence** of files/directories
+
+```java
+File file = new File("data.txt");
+if (file.exists()) file.delete();
+```
+
+---
+
+### 5. **How to list all files in a directory using Java?**
+
+```java
+File dir = new File("path/to/dir");
+File[] files = dir.listFiles();
+```
+
+Or using Java 8:
+
+```java
+Files.list(Paths.get("path/to/dir")).forEach(System.out::println);
+```
+
+---
+
+### 6. **What is the difference between `FileInputStream` and `FileReader`?**
+
+| `FileInputStream`     | `FileReader`                     |
+| --------------------- | -------------------------------- |
+| Reads **raw bytes**   | Reads **characters** (text data) |
+| For images, PDF, etc. | For text files                   |
+
+---
+
+### 7. **How do you handle large files efficiently?**
+
+**Answer:**
+
+* Use `BufferedReader` for reading line-by-line
+* Use **streaming** (`Files.lines()`) instead of reading all into memory
+* Prefer **NIO channels** and buffers for advanced control
+
+---
+
+### 8. **What is the use of `RandomAccessFile`?**
+
+**Answer:**
+
+* Allows **reading and writing** to any position in a file
+* Useful for **log files**, **index files**, or **fixed-length records**
+
+```java
+RandomAccessFile raf = new RandomAccessFile("data.txt", "rw");
+raf.seek(10); // move to byte 10
+raf.writeBytes("Java");
+```
+
+---
+
+### 9. **How do you copy a file in Java?**
+
+```java
+Files.copy(Paths.get("source.txt"), Paths.get("dest.txt"), StandardCopyOption.REPLACE_EXISTING);
+```
+
+---
+
+### 10. **How do you delete a file or directory?**
+
+```java
+Files.deleteIfExists(Paths.get("file.txt"));
+```
+
+---
+
+### 🔸 Q: How do you process log files in a microservice?
+
+**Answer:**
+
+> Use `BufferedReader` or `Files.lines()` to stream logs line-by-line, filter relevant content (e.g., using `Stream.filter()`), and push them to ELK, Kafka, or custom dashboards.
+
+---
+
+### 🔸 Q: What if two threads try to write to a file simultaneously?
+
+**Answer:**
+
+> You'll face **race conditions or file corruption**. Use:
+
+* File locks (`FileChannel.lock()`)
+* Synchronized blocks
+* Logging libraries like **Log4j** (thread-safe)
+

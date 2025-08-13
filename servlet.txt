@@ -1,0 +1,135 @@
+What is a Servlet?
+A Servlet is a Java class used to handle HTTP requests and responses in a Java web application. It runs on a Servlet container
+(like Apache Tomcat) and follows the Java EE (Jakarta EE) specification.
+
+[Client Sends Request]
+       ↓
+  [Servlet Container]
+       ↓
+    init() → once
+    doFilter() for intercept the req/res
+  service() → on every request
+ destroy() → once on shutdown or undeploy
+
+
+
+web.xml :
+
+| Use Case                     | Description                                               |
+| ---------------------------- | --------------------------------------------------------- |
+| ✅ Servlet Configuration  | Map servlets to URLs using `<servlet>` & `<servlet-mapping>` |
+| ✅ Listener Configuration | Register lifecycle listeners                                 |
+| ✅ Filter Mapping         | Configure filters (e.g., logging, authentication)            |
+| ✅ Session Configuration  | Set session timeout                                          |
+| ✅ Error Handling         | Custom error pages (`404`, `500`, etc.)                      |
+| ✅ Welcome Files          | Set default homepage (e.g., `index.html`)                    |
+| ✅ Security Settings      | Configure access control                                     |
+
+
+How does a servlet handle client requests and responses?
+
+| Step                         | What Happens                                           |
+| ---------------------------- | ------------------------------------------------------ |
+| 1. Client sends HTTP request | Browser hits URL like `/hello?name=John`               |
+| 2. Container finds servlet   | Maps `/hello` to `HelloServlet`                        |
+| 3. Calls `service()`         | Internally calls `doGet()` or `doPost()`               |
+| 4. Access request            | Use `HttpServletRequest` to get query/form/header data |
+| 5. Write response            | Use `HttpServletResponse` to send HTML, JSON, etc.     |
+
+
+Servlet Filter :
+
+A Servlet Filter is a reusable Java component that intercepts HTTP requests/responses to perform preprocessing or postprocessing tasks like
+logging, security checks, or modifications, without modifying actual servlet code.
+
+
+life Cycle :
+
+init()
+doFilter()
+destroy()
+
+
+major interfaces in Servlet :
+
+Servlet , HttpServlet , ServletConfig , ServletContext ,Filter , FilterChain , FilterConfig , HttpServletRequest ,HttpServletResponse, HttpSession
+
+
+
+ServletConfig  :
+ServletConfig provides initialization parameters and configuration specific to a single servlet. It is used to pass config values
+(like DB credentials, API keys, etc.) from web.xml to a servlet during initialization.
+
+One ServletConfig per servlet instance.
+Passed to the init(ServletConfig config) method.
+Provides access to:
+Servlet name
+Init parameters
+ServletContext (via getServletContext())
+
+
+ServletContext :
+ServletContext represents the entire web application and allows servlets (and filters/listeners) to share data and access global configuration.
+
+Shared across all servlets in the app.
+Sharing data between servlets (setAttribute() / getAttribute())
+Getting application-level parameters (context-param)
+Getting real file paths
+Logging
+Getting RequestDispatcher
+
+| Feature      | `ServletConfig`                 | `ServletContext`                      |
+| ------------ | ------------------------------- | ------------------------------------- |
+| Scope        | One servlet                     | Whole web application                 |
+| Purpose      | Servlet-specific config         | Global/shared config & app-level data |
+| Set in       | `<init-param>` in `web.xml`     | `<context-param>` in `web.xml`        |
+| Accessed by  | `config.getInitParameter()`     | `context.getInitParameter()`          |
+| Data sharing | No                              | Yes (`setAttribute`, `getAttribute`)  |
+| Accessed via | `ServletConfig` (from `init()`) | `getServletContext()`                 |
+
+
+
+Can a servlet have multiple instances?
+
+By default , No because of one servlet can differentiate by their endpoints and HTTP method but if forcefully we define multiple instances so it
+may cause of race condition because of thread safty.
+
+
+RequestDispatcher :
+RequestDispatcher is an interface in the Servlet API that allows one resource (like a servlet or JSP) to forward a request to another resource
+or include content from another resource within the same request.
+
+forward() :  Forwards the request to another resource on the server (JSP, servlet, HTML, etc.).
+include() :  Includes the output of another resource into the current response.
+
+Both methods must be called before the response is committed (i.e., before output is flushed).
+
+
+Session Management :
+
+is the process of tracking user activity between requests — like remembering login state, items in a cart, preferences, etc.
+
+
+HttpServletRequest :
+Used to read information sent by the client, including:
+
+Form data (request.getParameter())
+Request headers
+HTTP method (GET, POST, etc.)
+Session and cookie information
+Request URI, URL, context path, etc.
+
+HttpServletResponse :
+Used to send information back to the client, including:
+
+HTML or binary content
+HTTP status codes
+Cookies and headers
+Redirects
+
+
+Scope of Servlets :
+
+request : used to pass data between components during a single request.
+session : used to pass data between components and multiple request during the session valid.
+application : used to pss data between components and multiple request during the application.

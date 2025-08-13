@@ -1,0 +1,188 @@
+1.  Primary Key  – Uniquely identifies each record in a table; cannot be null.
+2.  Candidate Key  – A set of columns that can uniquely identify a row; one of them becomes the primary key.
+3.  Super Key  – Any combination of columns that uniquely identifies a row (can include extra attributes).
+4.  Foreign Key  – A field that refers to the primary key of another table to establish a relationship.
+5.  Composite Key  – A primary key made up of two or more columns.
+6.  Alternate Key  – A candidate key that was  not  chosen as the primary key.
+7.  Unique Key  – Ensures all values in the column are different, but allows a single null value.
+8.  Surrogate Key  – A system-generated unique identifier, often used as a substitute for natural primary keys.
+
+
+Normalization :
+Normalization is the process of organizing a relational database in a way that reduces data redundancy and improves data integrity. It involves
+dividing large tables into smaller, related tables and defining relationships between them using foreign keys.
+
+No redundant data (avoid duplication)
+Updates are consistent (no partial or inconsistent updates)
+Storage is efficient (no wasted space due to duplication)
+Queries become clearer (logical data modeling)
+
+
+1.  1NF – Ensures that each column contains only atomic (indivisible) values and each record is unique.
+2.  2NF – Achieves 1NF and removes partial dependencies on a composite primary key.
+3.  3NF – Achieves 2NF and removes transitive dependencies (non-key depending on non-key).
+4.  BCNF – A stronger version of 3NF where every determinant is a candidate key.
+5.  4NF – Removes multi-valued dependencies; a record should not contain two or more independent multivalued facts.
+6.  5NF – Ensures that data is split into smaller tables and recombined using joins without data loss (handles join dependency).
+7.  6NF – Deals with temporal databases, allowing rows to be split into irreducible components over time.
+
+
+Joins :
+
+1.  INNER JOIN  – Returns only the matching rows from both tables.
+2.  LEFT JOIN (LEFT OUTER JOIN)  – Returns all rows from the left table, and matching rows from the right table; nulls if no match.
+3.  RIGHT JOIN (RIGHT OUTER JOIN)  – Returns all rows from the right table, and matching rows from the left table; nulls if no match.
+4.  FULL JOIN (FULL OUTER JOIN)  – Returns all rows from both tables; nulls where there is no match on either side.
+5.  CROSS JOIN  – Returns the Cartesian product of both tables (all combinations).
+6.  SELF JOIN  – A table is joined with itself using aliases to compare rows within the same table.
+7.  NATURAL JOIN  – Automatically joins tables based on columns with the same name and compatible data types.
+
+
+4. Write a query to fetch records that have duplicates based on a column.   -> SELECT email FROM Employees GROUP BY email HAVING COUNT(*) > 1;
+
+
+5.  How do you avoid duplicates in a result set?     -> SELECT DISTINCT * FROM employees;
+
+
+Aggregation : calculation on a set of values to return a single summarized value — like total, average, count, etc.
+
+
+| Feature              | `WHERE`                | `HAVING`                     |
+| -------------------- | ---------------------- | ---------------------------- |
+| Applies to           | Rows (before grouping) | Groups (after grouping)      |
+| Aggregate functions  | ❌ Not allowed          | ✅ Allowed                    |
+| Used with `GROUP BY` | Optional               | Usually used with `GROUP BY` |
+| Execution order      | Before `GROUP BY`      | After `GROUP BY`             |
+
+
+
+| Feature                         | Stored Procedure                             | Function                                   |
+| ------------------------------- | ------------------------------------------------ | ---------------------------------------------- |
+| Purpose                     | Perform an action (insert/update/delete, etc.)   | Compute and return a value                     |
+| Returns value               | Can return 0 or more values via `OUT` params | Must return a single value                 |
+| Can be used in SELECT       | ❌ No (cannot be used directly in a query)        | ✅ Yes (can be used in `SELECT`, `WHERE`, etc.) |
+| Supports DML (insert, etc.) | ✅ Yes                                            | ⚠️ Limited or Not Allowed (depends on DB)      |
+| Use of `RETURN`             | Optional (use `OUT`/`INOUT` parameters)          | Mandatory (must return a value)                |
+| Transaction control         | ✅ Can use `COMMIT` and `ROLLBACK`                | ❌ Cannot manage transactions                   |
+| Exception Handling          | ✅ Supported                                      | ✅ Supported                                    |
+| Call Syntax                 | `CALL proc_name()`                               | `SELECT func_name()`                           |
+
+
+SQL injection :
+SQL Injection is a security vulnerability that allows attackers to inject malicious SQL code into your application's query logic .
+
+To prevent :-
+1. Prepared Statements
+2. ORM Tools
+3. Stored Procedures
+4. Limit Database Privileges
+
+
+Store Procedure : precompiled group of SQL statements stored in the database that can be executed as a single unit.
+View : virtual table based on the result of a SELECT query. It doesn’t store data physically but displays data from one or more real tables.
+Trigger : A Trigger is a database object that automatically executes a predefined action in response to certain events on a table or view.
+            ( INSERT ,UPDATE ,DELETE )
+Function : A Function in SQL is a named database object that accepts input parameters, performs operations, and returns a single value.
+Index : An index in SQL is a performance optimization feature that helps the database find rows faster, similar to an index in a book.
+        Instead of scanning the entire table, the database can quickly locate data using the index.
+
+
+
+
+When should you avoid using indexes?
+
+- in small table .
+- where DML operation happens most.
+- limited unique records.
+
+
+
+How do you identify if a query is using an index or not?
+    using the Explain Clause in select query
+ex.    EXPLAIN SELECT * FROM advertisement.banners;
+
+✔️ Here type = range, key = idx_salary → index used ✅
+
+
+
+| Method                      | Fetch Type       | Return Type   | When is Entity Loaded?    | Exception Thrown                                        | Use Case                                                   |
+| --------------------------- | ---------------- | ------------- | ------------------------- | ------------------------------------------------------- | ---------------------------------------------------------- |
+| `findById(id)`              | **Eager**        | `Optional<T>` | Immediately               | No (returns `Optional.empty()` if not found)            | Safe fetch when entity might not exist                     |
+| `getOne(id)` *(Deprecated)* | **Lazy (proxy)** | `T`           | When accessed (lazy load) | `EntityNotFoundException` if not found *at access time* | Deprecated – avoid using                                   |
+| `getReferenceById(id)`      | **Lazy (proxy)** | `T`           | When accessed (lazy load) | `EntityNotFoundException` if not found *at access time* | Use when you only need a reference (e.g., for association) |
+
+
+
+| Method      | API Source              | Returns             | When to Use                                   | Key Behavior                                                                                             |
+| ----------- | ----------------------- | ------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `persist()` | **JPA (EntityManager)** | `void`              | Insert **new** entities                       | Makes entity **managed** (attached to persistence context); throws exception if entity already has an ID |
+| `merge()`   | **JPA (EntityManager)** | `T`                 | Update or save **detached** or **new** entity | Returns **a new managed instance**, original remains detached                                            |
+| `save()`    | **Hibernate-specific**  | `Serializable` (ID) | Save new or existing entities                 | Immediately assigns an ID; **bypasses some JPA rules**; may insert before flush                          |
+
+
+| Feature            | **First-Level Cache**                 | **Second-Level Cache**                     |
+| ------------------ | ------------------------------------- | ------------------------------------------ |
+| Scope              | **Per Session (Transaction/Request)** | **Across Sessions / Application-wide**     |
+| Enabled By Default | ✅ Yes                                | ❌ No (must be configured)                |
+| Provider           | Hibernate core                        | External: EhCache, Redis, Infinispan, etc. |
+| Customizable       | Limited                               | Highly configurable                        |
+| Usage              | Basic repeated entity fetch           | Reuse across sessions, reduce DB load      |
+| Stores             | Entities only                         | Entities, collections, queries             |
+
+
+
+| Cascade Type | Effect                                 |
+| ------------ | -------------------------------------- |
+| `PERSIST`    | Save child when parent is saved        |
+| `MERGE`      | Update child when parent is updated    |
+| `REMOVE`     | Delete child when parent is deleted    |
+| `ALL`        | All of the above                       |
+| `DETACH`     | Detach child when parent is detached   |
+| `REFRESH`    | Refresh child when parent is refreshed |
+
+
+The @Transactional annotation in Spring is used to manage database transactions automatically. It tells Spring to wrap the method execution in
+a transaction, handling commit, rollback, and isolation seamlessly behind the scenes.
+
+Constraints :
+Primary Key, Foreign Key, NOT NULL, UNIQUE, CHECK, DEFAULT, INDEX
+
+
+
+🔹 1. DataSource – Connection Manager
+📌 What it is:
+A factory for database connections
+Configures connection pooling, DB URL, username, password, etc.
+Required by both JdbcTemplate and EntityManager
+
+🧩 Role:
+Provides connection objects to interact with the DB
+Underlying implementation is often HikariCP in Spring Boot
+
+
+🔹 2. EntityManager – JPA’s Persistence Interface
+📌 What it is:
+Part of JPA (javax.persistence.EntityManager)
+Manages entities and their lifecycle (persist, merge, remove, etc.)
+Implements the ORM (Object-Relational Mapping) layer
+
+🧩 Role:
+Maps Java objects ↔ database tables
+Executes JPQL / Criteria queries
+Manages transactions, caching, dirty checking
+
+
+🔹 3. JdbcTemplate – Simplified JDBC Access
+📌 What it is:
+A helper class provided by Spring JDBC
+Simplifies plain SQL execution without ORM
+Automatically handles:
+Opening/closing connections
+Statement creation
+ResultSet processing
+Exception translation
+
+🧩 Role:
+Use for raw SQL when you don’t need full ORM
+Useful for batch updates, stored procedures, or read-heavy operations
+

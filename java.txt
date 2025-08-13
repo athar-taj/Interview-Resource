@@ -1,0 +1,74 @@
+                 +---------------------------+
+                 |        JDK                |
+                 | (Java Development Kit)    |
+                 |  - Compiler (javac)       |
+                 |  - Debugger, Tools        |
+                 |  - Includes JRE           |
+                 +-----------+---------------+
+                             |
+                             v
+                 +---------------------------+
+                 |          JRE              |
+                 | (Java Runtime Environment)|
+                 |  - JVM                    |
+                 |  - Libraries              |
+                 +-----------+---------------+
+                             |
+                             v
+                 +---------------------------+
+                 |          JVM              |
+                 | (Java Virtual Machine)    |
+                 |  - Executes Bytecode      |
+                 |  - Memory Management      |
+                 |  - Garbage Collection     |
+                 +----+---------------+------+
+                      |               |
+              At Runtime        Before Runtime
+                      |               |
+                      v               v
+        +-------------------+   +-------------------+
+        |       JIT         |   |       AOT         |
+        | (Just-In-Time      |   | (Ahead-Of-Time    |
+        |   Compiler)        |   |   Compilation)    |
+        | - Compiles hot     |   | - Compiles to     |
+        |   bytecode to      |   |   native code     |
+        |   native machine   |   |   before execution|
+        |   code during run  |   |                   |
+        +-------------------+   +-------------------+
+
+
+
++----------------------------+
+|        Native Memory       |
+|                            |
+|  ┌──────────────────────┐  |
+|  |      Metaspace       |  | ⇽ Class metadata
+|  └──────────────────────┘  |
+|  ┌──────────────────────┐  |
+|  |    Thread Stacks     |  | ⇽ Each thread gets its own stack
+|  └──────────────────────┘  |
+|  ┌──────────────────────┐  |
+|  |   Direct Buffers     |  | ⇽ NIO ByteBuffer.allocateDirect()
+|  └──────────────────────┘  |
+|  ┌──────────────────────┐  |
+|  |  Code Cache (JIT)    |  | ⇽ JIT-compiled native code
+|  └──────────────────────┘  |
++----------------------------+
+|          Heap             | ⇽ Java objects, arrays (GC controlled)
++----------------------------+
+
+
+
+
+java is passed-by-value language.
+not reference .
+
+| Type      | What’s Passed?        | Can modify content?  | Can reassign original? |
+| --------- | --------------------- | -------------------- | ---------------------- |
+| Primitive | Copy of the value     | ❌ No                 | ❌ No                   |
+| Object    | Copy of the reference | ✅ Yes (object state) | ❌ No (reference)       |
+
+
+Why String is Immutable ?
+beacuse in internal working of String is byte[]. and it's final .
+ex.     private final char value[];
