@@ -1,0 +1,162 @@
+rposition : relative, absolute , fixed ,sticky
+z-index : making layring.
+pseudo element : hover ,active ,focused ,disable , Firstchild ,nthChild
+
+
+	
+dom traversing : to access subElement, Parent Element ,Siblings Element of target element.  -> ( Dynamic Interaction, avoid querySelector each time , Manipulation )
+
+Event delegation : attach a single event listener to a parent element instead of attaching individual listeners to multiple child elements.
+		   ->  ( Dynamically Added Elements )
+
+event propogation : Bubbling (down > top ) ,Capturing ( top > down )
+
+Array.slice : To get Sub Array to Main Array
+Array.splice : TO make Adition and Deletion Opration in Perticular Array Of Indexes.
+
+Hoisting : Make Intialization and Access of Element in another manner 
+let , const : RefrenceError
+var  :  undifined 
+Function : No Error
+Variable Function  : TypoError
+
+
+Higher Order Function : Function that takes Function as an argument as return as an Function
+
+Curring : Currying is a technique in functional programming where a function with multiple arguments is transformed into a sequence of functions,
+          each taking one argument at a time.
+
+	( Higher Order Function , Arrow Function )
+
+
+function log(level) {
+  return function(message) {
+    console.log(`[${level}]: ${message}`);
+  };
+}
+
+const errorLog = log("ERROR");
+const infoLog = log("INFO");
+
+errorLog("Server down!"); // 👉 [ERROR]: Server down!
+infoLog("User logged in"); // 👉 [INFO]: User logged in
+
+
+
+Shallow Copy : After Copy of Object That affects to the Original Object.  
+Deep Copy : After Copy of Object that Does't Affect the Original Object.    JSON.parse(JSON.Stringfy(Object))
+
+
+PollyFill : A polyfill is a piece of code (usually JS) that implements a modern feature on older browsers that don’t support it natively.
+
+Babel : Babel is a JavaScript compiler that allows you to use modern JavaScript (ES6/ESNext) features and converts them into backward-compatible versions.
+
+WebPack : Webpack is a module bundler for JavaScript. It takes all your files (.js, .css, .img, etc.), analyzes their dependencies, and bundles them into
+          one or more optimized files.   ( npx webpack --config webpack.config.js )
+
+Tree Shaking : Tree Shaking is the process of removing unused (dead , unreachable ) code from the final JavaScript bundle to reduce size.
+
+
+
+Call() : call() invokes a function immediately and allows you to pass arguments one by one.
+It's used when you want to execute a function with a specific this value.
+
+
+Apply() : apply() is similar to call(), but it takes arguments as an array.
+It's useful when you have arguments in an array or array-like structure.
+
+
+Bind() : bind() does not invoke the function immediately.
+It returns a new function with this permanently bound to the given object.
+Useful for callbacks or delayed execution.
+
+
+
+Promise() : we need Promises to handle asynchronous tasks (like API calls, file reading, timers, database queries) in a clean, maintainable, and error-handled way.
+
+| Method         | Description                                      |
+| -------------- | ------------------------------------------------ |
+| `resolve()`    | Create resolved promise                          |
+| `reject()`     | Create rejected promise                          |
+| `all()`        | Wait for all to succeed, fail fast on one reject |
+| `allSettled()` | Wait for all, return results with status         |
+| `race()`       | Settle on the first finished promise             |
+| `any()`        | Resolve on first success, error if all fail      |
+
+
+
+Event Loop : Call Stack (Normal Task) , Callback Queue(Async Operation)
+
+JavaScript is single-threaded (it has one Call Stack).
+But modern apps need asynchronous behavior (e.g., fetching data, timers, animations).
+This is handled using the Event Loop mechanism.
+
+
+Debouncing : function is only Called after a certain delay after the last event.
+Throttling : function is only called once per specified time interval, no matter how many times the event fires.
+
+
+Call stack : what current function is running and what to return to when function finishing.
+	     ( if function is called so new Execution Context will be created and pushed onto the Call Stack ) 
+
+Lexical Environment : in JavaScript refers to the structure that defines where variables and functions are accessible based on where they are physically written in the code (i.e., their lexical position) (Local and global scope).
+
+
+Temporal Dead zone : Hoisting of var and let and const. Prevent accidental usage of variables before they're properly initialised.
+		     Make the behaviour of let and const more predictable and safe. 	
+
+Event Loop : Mechanism that handles asynchronous task ( setTimeOut ,Promises ,DOM events , fetch ) It ensures non-blocking behavior in a single-threaded environment.
+
+WEB API : setTimeout ,setIntervel ,DOM event ,fetch 
+
+Callback Queue : stores callbacks from Web APIs . Waits for the call stack to be empty before being pushed back.
+
+Micro-task Queue : Promise.then , Promise.catch are stores , Higher Priority than the callback queue.
+
+
+Callback hell : happens when write nested callback functions. (Avoid : Promises , Async/Await , Named Function )
+
+
+First Class Function : Functions can be treated like any other value. ( Assign them to variable, Pass them as arguments, return )
+		       ( Callbacks , Functional Programming , Higher-Order function , Closure , Event Handling , Promise Chain ,Currying)
+
+	
+ 
+
+Clouser : A closure is a function that has access to its own scope, the outer function’s scope, and the global scope — even after the outer function has returned.
+
+Function Factories
+Functions that create other functions with pre-configured values.
+
+Callbacks / Event Handlers
+Closures keep access to the variables they need.
+
+Module Pattern
+Helps create private/public methods in JavaScript modules.
+
+
+
+
+Immediately Invoked Function Expression (IIFE) : this function executed immediately after it is defined.
+
+
+Callback Function : A function that you pass as an argument to another function, and that other function will call it back later.
+
+
+
+Prototype : is bluprint of object .
+
+ 	    find for object  ->  object.prototype  -> object.prototype.prototype -> null 
+
+
+
+ES 6 ->
+	let, const 
+	arrow function 
+	Default Parameters
+	Spread & Rest Operator
+	Classes
+	Promises
+	Modules (import / export) 
+
+ 
