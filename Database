@@ -186,3 +186,12 @@ Exception translation
 Use for raw SQL when you don’t need full ORM
 Useful for batch updates, stored procedures, or read-heavy operations
 
+
+
+
+MVCC vs. Locking
+Most modern databases (like PostgreSQL and MySQL) don't actually use "Heavy Locks" for isolation. They use MVCC (Multi-Version Concurrency Control).
+
+When a transaction starts, the database gives it a "snapshot" of the data at that exact moment.
+
+If another user updates the data, the database keeps the old version for you to finish your work. This allows "Reads" to never block "Writes," which is how high-scale apps maintain speed.
