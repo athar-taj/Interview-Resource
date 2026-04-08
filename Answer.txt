@@ -66,7 +66,7 @@ Program Counter Register : Stores the address of the current instruction being e
 MetaSpace : Store Class Meta data , methods def. , variables .
 
 
-Old Generation , New Generation , metaSpace , Other ( threads etc.)
+Garbage Collector (Old Generation , New Generation ), metaSpace , Other ( threads etc.)
 
 45. What is ORM ? Example ?
     MyBatis,EclipseLink,TopLink ,OpenJPA
