@@ -142,6 +142,7 @@ JAVA 11 :
 
 
 JAVA 17 :
+- record class
 - Sealed Classes
 - Switch Expressions
 - RandomGenerator API
